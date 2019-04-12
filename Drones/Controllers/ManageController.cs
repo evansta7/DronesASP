@@ -174,24 +174,50 @@ namespace Drones.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        private async Task AddFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
+        private void GetFarmerUserDetail() {
+         int userId =   int.Parse(User.Identity.GetUserId());
+            DbContext.Farmer.Where(x=>x.)
+        }
+
+        private async Task<ActionResult> AddFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
         {
             Farmer farmer = new Farmer();
             farmer.Name = farmerDetailViewModel.FirstName;
             farmer.Surname = farmerDetailViewModel.LastName;
             DbContext.Farmer.Add(farmer);
             await  DbContext.SaveChangesAsync();
+
+            return RedirectToAction("AddFarmAddress", "Manage");
         }
 
-        private async Task AddUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
+        private async Task<ActionResult> AddUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
         {
             string phoneNumber = farmerDetailViewModel.PhoneNumber;
             user.PhoneNumber = phoneNumber;
             user.PhoneNumberConfirmed = true;
 
             await DbContext.SaveChangesAsync();
+            return RedirectToAction("AddFarmAddress", "Manage");
         }
 
+        public ActionResult SaveFarmAddressAsync()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        private async Task<ActionResult> SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
+        {
+            Farm farm = new Farm();
+            farm.StreetAddress = farmAddressViewModel.StreetAddress;
+            farm.Suburb = farmAddressViewModel.Suburb;
+            farm.PostalCode = farmAddressViewModel.PostalCode;
+            farm.FarmSize = farmAddressViewModel.FarmSize;
+            DbContext.Farms.Add(farm);
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Manage");
+        }
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
