@@ -183,25 +183,13 @@
     <Compile Include="Migrations\201904070946223_initial.Designer.cs">
       <DependentUpon>201904070946223_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904071020080_UpdatedTableFarm.cs" />
-    <Compile Include="Migrations\201904071020080_UpdatedTableFarm.Designer.cs">
-      <DependentUpon>201904071020080_UpdatedTableFarm.cs</DependentUpon>
+    <Compile Include="Migrations\201904080943229_test.cs" />
+    <Compile Include="Migrations\201904080943229_test.Designer.cs">
+      <DependentUpon>201904080943229_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904071033550_AddedCropsTable.cs" />
-    <Compile Include="Migrations\201904071033550_AddedCropsTable.Designer.cs">
-      <DependentUpon>201904071033550_AddedCropsTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904071038074_CreatedUAVTable.cs" />
-    <Compile Include="Migrations\201904071038074_CreatedUAVTable.Designer.cs">
-      <DependentUpon>201904071038074_CreatedUAVTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904071055117_addedLinkingTables.cs" />
-    <Compile Include="Migrations\201904071055117_addedLinkingTables.Designer.cs">
-      <DependentUpon>201904071055117_addedLinkingTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904071057119_fixedLinkingTables.cs" />
-    <Compile Include="Migrations\201904071057119_fixedLinkingTables.Designer.cs">
-      <DependentUpon>201904071057119_fixedLinkingTables.cs</DependentUpon>
+    <Compile Include="Migrations\201904111904406_addforeignkey.cs" />
+    <Compile Include="Migrations\201904111904406_addforeignkey.Designer.cs">
+      <DependentUpon>201904111904406_addforeignkey.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -222,6 +210,7 @@
     <Content Include="Content\ie7.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\Resources\Logos\logo.png" />
+    <Content Include="Content\Resources\Logos\Logo2.PNG" />
     <Content Include="Content\themify-icons.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -2740,6 +2729,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Manage\AddUAVImage.cshtml" />
+    <Content Include="Views\Manage\AddFarmAddress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2762,20 +2752,11 @@
     <EmbeddedResource Include="Migrations\201904070946223_initial.resx">
       <DependentUpon>201904070946223_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071020080_UpdatedTableFarm.resx">
-      <DependentUpon>201904071020080_UpdatedTableFarm.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904080943229_test.resx">
+      <DependentUpon>201904080943229_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071033550_AddedCropsTable.resx">
-      <DependentUpon>201904071033550_AddedCropsTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071038074_CreatedUAVTable.resx">
-      <DependentUpon>201904071038074_CreatedUAVTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071055117_addedLinkingTables.resx">
-      <DependentUpon>201904071055117_addedLinkingTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904071057119_fixedLinkingTables.resx">
-      <DependentUpon>201904071057119_fixedLinkingTables.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904111904406_addforeignkey.resx">
+      <DependentUpon>201904111904406_addforeignkey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -73,7 +73,26 @@ namespace Drones.Models
         [Phone]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+    }
 
+    public class AddFarmAddressViewModel
+    {
+        [Required]
+        [Display(Name = "Street Address")]
+        public string StreetAddress { get; set; }
+
+        [Required]
+        [Display(Name = "Suburb")]
+        public string Suburb { get; set; }
+
+        [Required]
+        [Display(Name = "Postal Code")]
+        public string PostalCode { get; set; }
+
+
+        [Required]
+        [Display(Name = "Farm Size (HA)")]
+        public int FarmSize { get; set; }
     }
 
     public class AddUAVImageViewModel {

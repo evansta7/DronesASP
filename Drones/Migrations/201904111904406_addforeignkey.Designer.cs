@@ -7,13 +7,13 @@ namespace Drones.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class UpdatedTableFarm : IMigrationMetadata
+    public sealed partial class addforeignkey : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedTableFarm));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addforeignkey));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904071020080_UpdatedTableFarm"; }
+            get { return "201904111904406_addforeignkey"; }
         }
         
         string IMigrationMetadata.Source

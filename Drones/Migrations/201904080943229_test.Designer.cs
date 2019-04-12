@@ -7,13 +7,13 @@ namespace Drones.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedCropsTable : IMigrationMetadata
+    public sealed partial class test : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedCropsTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(test));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904071033550_AddedCropsTable"; }
+            get { return "201904080943229_test"; }
         }
         
         string IMigrationMetadata.Source
