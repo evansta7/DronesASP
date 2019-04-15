@@ -100,10 +100,6 @@ namespace Drones
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
-            Farmer farmer = new Farmer();
-            ManageController manageController = new ManageController();
-            farmer = manageController.GetFarmerUserDetail();
-
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
 

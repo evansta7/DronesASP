@@ -154,7 +154,7 @@ namespace Drones.Controllers
             await AddUserDetail(farmerDetailViewModel, user);
             await AddFarmerUserDetail(farmerDetailViewModel);
 
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("AddFarmAddress", "Manage");
         }
 
         public ActionResult AddUAVImage()
@@ -171,7 +171,7 @@ namespace Drones.Controllers
                 string filename = Path.GetFileName(Request.Files[upload].FileName);
                 Request.Files[upload].SaveAs(Path.Combine(pathToSave, filename));
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("AddFarmAddress", "Manage");
         }
 
         public Farmer GetFarmerUserDetail()
@@ -183,7 +183,17 @@ namespace Drones.Controllers
 
         }
 
+        public ActionResult AddFarmerUserDetail()
+        {
+            return View();
+        }
 
+        public ActionResult AddFarmAddress()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         private async Task<ActionResult> AddFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
         {
             Farmer farmer = new Farmer();
@@ -195,7 +205,8 @@ namespace Drones.Controllers
 
             return RedirectToAction("AddFarmAddress", "Manage");
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         private async Task<ActionResult> AddUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
         {
             string phoneNumber = farmerDetailViewModel.PhoneNumber;
@@ -206,14 +217,9 @@ namespace Drones.Controllers
             return RedirectToAction("AddFarmAddress", "Manage");
         }
 
-        public ActionResult SaveFarmAddressAsync()
-        {
-            return View();
-        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        private async Task<ActionResult> SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
+        public async Task<ActionResult> SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
         {
             Farm farm = new Farm();
             farm.StreetAddress = farmAddressViewModel.StreetAddress;
@@ -222,7 +228,16 @@ namespace Drones.Controllers
             farm.FarmSize = farmAddressViewModel.FarmSize;
             DbContext.Farms.Add(farm);
             await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        private async Task<ActionResult> SaveFarmAddressAsync()
+        {
+            Farm farm = new Farm();
+            DbContext.Farms.Add(farm);
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
         }
         //
         // POST: /Manage/EnableTwoFactorAuthentication
