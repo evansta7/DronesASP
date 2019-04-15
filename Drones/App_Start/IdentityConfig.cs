@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Drones.Models;
+using Drones.Entities;
+using Drones.Controllers;
 
 namespace Drones
 {
@@ -98,6 +100,10 @@ namespace Drones
 
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
+            Farmer farmer = new Farmer();
+            ManageController manageController = new ManageController();
+            farmer = manageController.GetFarmerUserDetail();
+
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
 
