@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201904111904406_addforeignkey.Designer.cs">
       <DependentUpon>201904111904406_addforeignkey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904150738450_UpdatingLizDB.cs" />
+    <Compile Include="Migrations\201904150738450_UpdatingLizDB.Designer.cs">
+      <DependentUpon>201904150738450_UpdatingLizDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2757,6 +2761,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904111904406_addforeignkey.resx">
       <DependentUpon>201904111904406_addforeignkey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904150738450_UpdatingLizDB.resx">
+      <DependentUpon>201904150738450_UpdatingLizDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
