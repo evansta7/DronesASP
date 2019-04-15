@@ -193,7 +193,7 @@ namespace Drones.Controllers
             DbContext.Farmer.Add(farmer);
             await  DbContext.SaveChangesAsync();
 
-            return RedirectToAction("AddFarmAddress", "Manage");
+            return RedirectToAction("Index", "Manage");
         }
 
         private async Task<ActionResult> AddUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
