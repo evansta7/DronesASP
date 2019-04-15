@@ -174,16 +174,19 @@ namespace Drones.Controllers
             return RedirectToAction("Index", "Manage");
         }
 
-        //private void GetFarmerUserDetail() {
-        // int userId =   int.Parse(User.Identity.GetUserId());
-        //    DbContext.Farmer.Where(x=>x.)
+        //private void GetFarmerUserDetail()
+        //{
+        //    int userId = int.Parse(User.Identity.GetUserId());
+        //    DbContext.Farmer.Where(x => x.)
         //}
+
 
         private async Task<ActionResult> AddFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
         {
             Farmer farmer = new Farmer();
             farmer.Name = farmerDetailViewModel.FirstName;
             farmer.Surname = farmerDetailViewModel.LastName;
+            farmer.UserId = User.Identity.GetUserId();
             DbContext.Farmer.Add(farmer);
             await  DbContext.SaveChangesAsync();
 
