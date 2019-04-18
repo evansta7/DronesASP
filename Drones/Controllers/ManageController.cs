@@ -226,19 +226,13 @@ namespace Drones.Controllers
             farm.Suburb = farmAddressViewModel.Suburb;
             farm.PostalCode = farmAddressViewModel.PostalCode;
             farm.FarmSize = farmAddressViewModel.FarmSize;
+            farm.Latitude = farmAddressViewModel.Latitude;
+            farm.Longitude = farmAddressViewModel.Longitude;
             DbContext.Farms.Add(farm);
             await DbContext.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        private async Task<ActionResult> SaveFarmAddressAsync()
-        {
-            Farm farm = new Farm();
-            DbContext.Farms.Add(farm);
-            await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
-        }
+
         //
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]

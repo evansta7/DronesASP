@@ -48,6 +48,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Simplovation.Web.Maps.VE, Version=4.0.0.0, Culture=neutral, PublicKeyToken=ddd80d9b18c0a4dc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Web.Maps.VE.4.00.00\lib\net\Simplovation.Web.Maps.VE.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -101,9 +107,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -111,6 +114,9 @@
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WebHelpers.Mvc5, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebHelpers.Mvc5.2.1.0\lib\net45\WebHelpers.Mvc5.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +201,10 @@
     <Compile Include="Migrations\201904150738450_UpdatingLizDB.Designer.cs">
       <DependentUpon>201904150738450_UpdatingLizDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904181506343_AddedLatAnLongForFarm.cs" />
+    <Compile Include="Migrations\201904181506343_AddedLatAnLongForFarm.Designer.cs">
+      <DependentUpon>201904181506343_AddedLatAnLongForFarm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -247,6 +257,7 @@
     <Content Include="Content\scss\_variables.scss" />
     <Content Include="Content\scss\_widgets.scss" />
     <Content Include="Content\css\style.css.map" />
+    <Content Include="WebMapsVE_Readme.txt" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dashboard.js" />
     <Content Include="Scripts\ie7.js" />
@@ -2763,6 +2774,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904150738450_UpdatingLizDB.resx">
       <DependentUpon>201904150738450_UpdatingLizDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904181506343_AddedLatAnLongForFarm.resx">
+      <DependentUpon>201904181506343_AddedLatAnLongForFarm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

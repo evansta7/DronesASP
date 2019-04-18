@@ -21,6 +21,10 @@ namespace Drones.Entities
 
         public string StreetAddress { get; set; }
 
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+
         public string Suburb { get; set; }
         public ICollection<Crop> CropId { get; set; }
         public ICollection<UAV> UAVId { get; set; }

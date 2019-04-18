@@ -42,6 +42,18 @@
                             @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
                         </div>
                         <div class="form-group">
+                            @Html.LabelFor(m => m.Suburb)
+                            @Html.TextBoxFor(m => m.Suburb, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Longitude)
+                            @Html.TextBoxFor(m => m.Longitude, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Latitude)
+                            @Html.TextBoxFor(m => m.Latitude, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
                             @Html.LabelFor(m => m.FarmSize)
                             @Html.TextBoxFor(m => m.FarmSize, new { @class = "form-control" })
                         </div>

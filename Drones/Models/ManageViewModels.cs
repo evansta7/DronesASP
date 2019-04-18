@@ -89,7 +89,12 @@ namespace Drones.Models
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
 
-
+        [Required]
+        [Display (Name = "Latitude")]
+        public string Latitude { get; set; }
+        [Required]
+        [Display(Name = "Latitude")]
+        public string Longitude { get; set; }
         [Required]
         [Display(Name = "Farm Size (HA)")]
         public int FarmSize { get; set; }
