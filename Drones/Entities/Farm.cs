@@ -28,7 +28,21 @@ namespace Drones.Entities
         public string Suburb { get; set; }
         public ICollection<Crop> CropId { get; set; }
         public ICollection<UAV> UAVId { get; set; }
-        public ICollection<Farmer> FarmerID { get; set; }
+
+        public Farm()
+        {
+
+        }
+
+        public Farm( Farm farm)
+        {
+            this.CropId = farm.CropId;
+            this.FarmId = farm.farmId;
+            this.FarmSize = farm.FarmSize;
+            this.Latitude = farm.Latitude;
+            this.Longitude = farm.Longitude;
+          
+        }
 
     }
 }

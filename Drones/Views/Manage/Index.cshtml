@@ -29,35 +29,30 @@
             @Html.ActionLink("Manage", "ManageLogins") ]
         </dd>*@
         @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
+        Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+
+         See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+            for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+
+         Uncomment the following block after you have set up two-factor authentication
         *@
-          
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddUAVImage")&nbsp;&nbsp;]</text>
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddFarmerDetail")</text>
-                }
-            </dd>
-        
+
+        <dt>Farmer Detail:</dt>
+        <dd>
+            <text>[&nbsp;&nbsp;@Html.ActionLink("View Farmer Details", "AddFarmerDetail")]</text>
+        </dd>
+        <dt>Farm Detail:</dt>
+        <dd>
+            <text>[&nbsp;&nbsp;@Html.ActionLink("View Farm Details", "AddFarmAddress")]</text>
+        </dd>
+
         @*<dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication.
             </p>*@
-            @*@if (Model.TwoFactor)
+        @*@if (Model.TwoFactor)
                 {
                     using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {

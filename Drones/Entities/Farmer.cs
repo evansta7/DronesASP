@@ -12,8 +12,7 @@ namespace Drones.Entities
         public int FarmerId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-
-        public ICollection<Farm> FarmID { get; set; }
+        public Farm Farms { get; set; }
         public string UserId { get; set; }
     }
 }

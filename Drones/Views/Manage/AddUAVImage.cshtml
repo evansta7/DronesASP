@@ -27,13 +27,14 @@
                     </div>
 
                     <div class="login-form">
-                        @using (Html.BeginForm("AddUAVImage", "Manage", FormMethod.Post,new { enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm("UploadUAVImage", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.ImageText)
-                            <input type="file" class="form-control" name="FileUpload1">
-                            <input type="submit" value="Upload">
-                        </div>
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ImageText)
+                                <input type="file" class="form-control" name="FileUpload1">
+                                <input type="submit" value="Upload">
+                            </div>
                         }
                     </div>
     </body>

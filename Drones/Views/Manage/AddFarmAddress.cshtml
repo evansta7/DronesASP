@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    @using (Html.BeginForm("SaveFarmAddressAsync", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    @using (Html.BeginForm("ChangeFarmAddressAsync", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-group">
@@ -66,8 +66,22 @@
     </div>
 </body>
 </html>
+<script>
+    $.ajax({
+        // edit to add steve's suggestion.
+        //url: "/ControllerName/ActionName",
+        url: '<%= Url.Action("ActionName", "ControllerName") %>',
+        success: function (data) {
+            // your data could be a View or Json or what ever you returned in your action method 
+            // parse your data here
+            alert(data);
+        }
+    });
+</script>
 
 @section Scripts {
+
+
     @Scripts.Render("~/bundles/jqueryval")
 }
 

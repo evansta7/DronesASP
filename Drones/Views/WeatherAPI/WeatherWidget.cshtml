@@ -1,0 +1,17 @@
+﻿@model Drones.Models.ResponseWeatherViewModel
+@{
+    ViewBag.Title = "WeatherWidget";
+}
+<body class="bg-dark">
+    @using (Html.BeginForm("WeatherWidget", "WeatherAPI", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.name)
+            @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Refresh Weather</button>
+    }
+</body>

@@ -9,6 +9,9 @@ using Microsoft.Owin.Security;
 using Drones.Models;
 using Drones.Entities;
 using System.IO;
+using System.Net.Http;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Drones.Controllers
 {
@@ -139,11 +142,29 @@ namespace Drones.Controllers
 
         //
         // GET: /Manage/AddFarmerDetail
-        public ActionResult AddFarmerDetail()
+        public async Task<ActionResult> AddFarmerDetail()
         {
-            return View();
+            FarmerDetailViewModel farmerDetailViewModel = new FarmerDetailViewModel() ;
+            Farmer farmer = GetFarmerUserDetail();
+
+            if (farmer != null)
+            {
+                farmerDetailViewModel.FirstName = farmer.Name;
+                farmerDetailViewModel.LastName = farmer.Surname;
+                farmerDetailViewModel.PhoneNumber = GetUserPhoneNumber();
+                return View(farmerDetailViewModel);
+            }
+            else
+            {
+                return View();
+            }
         }
 
+        public string GetUserPhoneNumber() {
+            string userId = User.Identity.GetUserId();
+            var user = DbContext.Users.Where(x => x.Id.Equals(userId)).FirstOrDefault();
+           return user.PhoneNumber;
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SaveFarmerDetailAsync(FarmerDetailViewModel farmerDetailViewModel)
@@ -152,6 +173,7 @@ namespace Drones.Controllers
             ApplicationUser user = UserManager.FindById(userId);
 
             await AddUserDetail(farmerDetailViewModel, user);
+
             await AddFarmerUserDetail(farmerDetailViewModel);
 
             return RedirectToAction("AddFarmAddress", "Manage");
@@ -161,24 +183,29 @@ namespace Drones.Controllers
         {
             return View();
         }
+
+        public ActionResult PrintReport()
+        {
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        private async Task<ActionResult> UploadUAVImage(AddUAVImageViewModel uploadUAVImageViewModel) {
+        public async Task<ActionResult> UploadUAVImage(AddUAVImageViewModel uploadUAVImageViewModel) {
             foreach (string upload in Request.Files)
             {
                 if (Request.Files[upload].ContentLength == 0) continue;
-                string pathToSave = Server.MapPath("~/Documents/");
+                string pathToSave = Server.MapPath("~/Documents");
                 string filename = Path.GetFileName(Request.Files[upload].FileName);
                 Request.Files[upload].SaveAs(Path.Combine(pathToSave, filename));
             }
-            return RedirectToAction("AddFarmAddress", "Manage");
+            return RedirectToAction("PrintReport", "Manage");
         }
 
         public Farmer GetFarmerUserDetail()
         {
             Farmer farmer = new Farmer();
-            int userId = int.Parse(User.Identity.GetUserId());
-            farmer = (Farmer)DbContext.Farmer.Where(x => x.Equals(userId));
+            string userId = User.Identity.GetUserId();
+            farmer = DbContext.Farmer.Include("Farms").Where(x => x.UserId.Equals(userId)).SingleOrDefault();
             return farmer;
 
         }
@@ -190,8 +217,25 @@ namespace Drones.Controllers
 
         public ActionResult AddFarmAddress()
         {
-            return View();
+            AddFarmAddressViewModel addFarmAddressViewModel = new AddFarmAddressViewModel();
+            Farmer farmer = GetFarmerUserDetail();
+            if (farmer.Farms != null)
+            {
+                addFarmAddressViewModel.FarmSize = farmer.Farms.FarmSize;
+                addFarmAddressViewModel.Latitude = farmer.Farms.Latitude;
+                addFarmAddressViewModel.Longitude = farmer.Farms.Longitude;
+                addFarmAddressViewModel.PostalCode = farmer.Farms.PostalCode;
+                addFarmAddressViewModel.StreetAddress = farmer.Farms.StreetAddress;
+                addFarmAddressViewModel.Suburb = farmer.Farms.Suburb;
+                return View(addFarmAddressViewModel);
+            }
+            else
+            {
+                return View();
+            }
+         
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         private async Task<ActionResult> AddFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
@@ -205,6 +249,7 @@ namespace Drones.Controllers
 
             return RedirectToAction("AddFarmAddress", "Manage");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         private async Task<ActionResult> AddUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
@@ -217,9 +262,25 @@ namespace Drones.Controllers
             return RedirectToAction("AddFarmAddress", "Manage");
         }
 
+        //TODO: refactor code into stardard form
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
+        public async Task<ActionResult> ChangeFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
+        {
+            Farmer farmer = GetFarmerUserDetail();
+
+            if (farmer.Farms != null)
+            {
+                await UpdateFarmAddressAsync(farmAddressViewModel);
+            }
+            else
+            {
+                await SaveFarmAddressAsync(farmAddressViewModel);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
         {
             Farm farm = new Farm();
             farm.StreetAddress = farmAddressViewModel.StreetAddress;
@@ -230,8 +291,26 @@ namespace Drones.Controllers
             farm.Longitude = farmAddressViewModel.Longitude;
             DbContext.Farms.Add(farm);
             await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+
+            Farmer farmer = GetFarmerUserDetail();
+            farmer.Farms = farm;
+
+            await DbContext.SaveChangesAsync();
         }
+        private async Task UpdateFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            Farm  farm= farmer.Farms;
+           
+            farm.StreetAddress = farmAddressViewModel.StreetAddress;
+            farm.Suburb = farmAddressViewModel.Suburb;
+            farm.PostalCode = farmAddressViewModel.PostalCode;
+            farm.FarmSize = farmAddressViewModel.FarmSize;
+            farm.Latitude = farmAddressViewModel.Latitude;
+            farm.Longitude = farmAddressViewModel.Longitude;
+            await DbContext.SaveChangesAsync();
+        }
+
 
         //
         // POST: /Manage/EnableTwoFactorAuthentication
