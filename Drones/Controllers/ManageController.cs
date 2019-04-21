@@ -170,13 +170,26 @@ namespace Drones.Controllers
         public async Task<ActionResult> SaveFarmerDetailAsync(FarmerDetailViewModel farmerDetailViewModel)
         {
             var userId = User.Identity.GetUserId();
+            Farmer farmer = GetFarmerUserDetail();
             ApplicationUser user = UserManager.FindById(userId);
 
-            await AddUserDetail(farmerDetailViewModel, user);
+            if (farmer != null)
+            {
+                await UpdateUserDetail(farmerDetailViewModel, user);
 
-            await AddFarmerUserDetail(farmerDetailViewModel);
+                await UpdateFarmerUserDetail(farmerDetailViewModel);
 
-            return RedirectToAction("AddFarmAddress", "Manage");
+                return RedirectToAction("Index", "Manage");
+            }
+            else
+            {
+                await AddUserDetail(farmerDetailViewModel, user);
+
+                await AddFarmerUserDetail(farmerDetailViewModel);
+
+                return RedirectToAction("AddFarmAddress", "Manage");
+            }
+
         }
 
         public ActionResult AddUAVImage()
@@ -246,9 +259,19 @@ namespace Drones.Controllers
             farmer.UserId = User.Identity.GetUserId();
             DbContext.Farmer.Add(farmer);
             await  DbContext.SaveChangesAsync();
-
             return RedirectToAction("AddFarmAddress", "Manage");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        private async Task UpdateFarmerUserDetail(FarmerDetailViewModel farmerDetailViewModel)
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            farmer.Name = farmerDetailViewModel.FirstName;
+            farmer.Surname = farmerDetailViewModel.LastName;
+            await DbContext.SaveChangesAsync();
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -257,9 +280,19 @@ namespace Drones.Controllers
             string phoneNumber = farmerDetailViewModel.PhoneNumber;
             user.PhoneNumber = phoneNumber;
             user.PhoneNumberConfirmed = true;
-
             await DbContext.SaveChangesAsync();
             return RedirectToAction("AddFarmAddress", "Manage");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        private async Task<ActionResult> UpdateUserDetail(FarmerDetailViewModel farmerDetailViewModel, ApplicationUser user)
+        {
+            string phoneNumber = farmerDetailViewModel.PhoneNumber;
+            user.PhoneNumber = phoneNumber;
+            user.PhoneNumberConfirmed = true;
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Manage");
         }
 
         //TODO: refactor code into stardard form

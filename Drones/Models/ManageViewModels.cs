@@ -93,7 +93,7 @@ namespace Drones.Models
         [Display (Name = "Latitude")]
         public string Latitude { get; set; }
         [Required]
-        [Display(Name = "Latitude")]
+        [Display(Name = "Longitude")]
         public string Longitude { get; set; }
         [Required]
         [Display(Name = "Farm Size (HA)")]
