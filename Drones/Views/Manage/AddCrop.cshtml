@@ -1,0 +1,70 @@
+﻿@model Drones.Models.CropViewModel
+@{
+    ViewBag.Title = "AddFarmAddress";
+}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title.</title>
+</head>
+
+<body class="bg-dark">
+    <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="images/logo.png" alt="" height="220" width="220">
+                    </a>
+                </div>
+                <div class="login-form">
+                    @using (Html.BeginForm("AddCropAsync", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CropName)
+                            @Html.TextBoxFor(m => m.CropName, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CropDescription)
+                            @Html.TextBoxFor(m => m.CropDescription, new { @class = "form-control" })
+                        </div>
+                        <h2>Climate</h2>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.IdealClimateLowerRange)
+                            @Html.TextBoxFor(m => m.IdealClimateLowerRange, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.IdealClimateUpperRange)
+                            @Html.TextBoxFor(m => m.IdealClimateUpperRange, new { @class = "form-control" })
+                        </div>
+                        <h2>Soil</h2>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.IdealSoil)
+                            @Html.TextBoxFor(m => m.IdealSoil, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.SoilDescription)
+                            @Html.TextBoxFor(m => m.SoilDescription, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.MostCommonPest)
+                            @Html.TextBoxFor(m => m.MostCommonPest, new { @class = "form-control" })
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Add Crop</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -310,7 +310,7 @@ namespace Drones.Controllers
             {
                 await SaveFarmAddressAsync(farmAddressViewModel);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("AddCrop", "Home");
         }
 
         private async Task SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
@@ -342,6 +342,68 @@ namespace Drones.Controllers
             farm.Latitude = farmAddressViewModel.Latitude;
             farm.Longitude = farmAddressViewModel.Longitude;
             await DbContext.SaveChangesAsync();
+        }
+
+        public Crop GetCropDetails()
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            Crop crop = new Crop();
+            crop = DbContext.Crops.Where(x => x.Farms.FarmId.Equals(farmer.Farms.FarmId)).SingleOrDefault();
+            return crop;
+
+        }
+
+
+        public async Task<ActionResult> AddCrop(CropViewModel cropViewModel)
+        {
+            Crop crop = GetCropDetails();
+            if (crop != null)
+            {
+                await UpdateCropAsync(cropViewModel);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                await AddCropAsync(cropViewModel);
+                return RedirectToAction("Index", "Home");
+
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddCropAsync(CropViewModel cropViewModel)
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            Farm farm = farmer.Farms;
+            Crop crop = new Crop();
+            crop.CropDescription = cropViewModel.CropDescription;
+            crop.CropName = cropViewModel.CropName;
+            crop.IdealClimateLowerRange = cropViewModel.IdealClimateLowerRange;
+            crop.IdealClimateUpperRange = cropViewModel.IdealClimateUpperRange;
+            crop.IdealSoil = cropViewModel.IdealSoil;
+            crop.MostCommonPest = cropViewModel.MostCommonPest;
+            crop.SoilDescription = cropViewModel.SoilDescription;
+            crop.Farms = farmer.Farms;
+            DbContext.Crops.Add(crop);
+            await DbContext.SaveChangesAsync();     
+            return RedirectToAction("Index", "Manage");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateCropAsync(CropViewModel cropViewModel)
+        {
+            Crop crop = new Crop();
+            crop.CropDescription = cropViewModel.CropDescription;
+            crop.CropName = cropViewModel.CropName;
+            crop.IdealClimateLowerRange = cropViewModel.IdealClimateLowerRange;
+            crop.IdealClimateUpperRange = cropViewModel.IdealClimateUpperRange;
+            crop.IdealSoil = cropViewModel.IdealSoil;
+            crop.MostCommonPest = cropViewModel.MostCommonPest;
+            crop.SoilDescription = cropViewModel.SoilDescription;
+            await DbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Manage");
         }
 
 

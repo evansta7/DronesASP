@@ -26,7 +26,6 @@ namespace Drones.Entities
         public string Longitude { get; set; }
 
         public string Suburb { get; set; }
-        public ICollection<Crop> CropId { get; set; }
         public ICollection<UAV> UAVId { get; set; }
 
         public Farm()
@@ -36,7 +35,6 @@ namespace Drones.Entities
 
         public Farm( Farm farm)
         {
-            this.CropId = farm.CropId;
             this.FarmId = farm.farmId;
             this.FarmSize = farm.FarmSize;
             this.Latitude = farm.Latitude;

@@ -125,6 +125,37 @@ namespace Drones.Models
         public string PhoneNumber { get; set; }
     }
 
+    public class CropViewModel
+    {
+        [Required]
+        [Display(Name = "Crop Description")]
+        public string CropDescription { get; set; }
+
+        [Required]
+        [Display(Name = "Crop Name")]
+        public string CropName { get; set; }
+
+        [Required]
+        [Display(Name = "Preferred Climate Minimum")]
+        public int IdealClimateLowerRange { get; set; }
+
+        [Required]
+        [Display(Name = "Preferred Climate Maximum")]
+        public int IdealClimateUpperRange { get; set; }
+
+        [Required]
+        [Display(Name = "Preferred Soil")]
+        public string IdealSoil { get; set; }
+
+        [Required]
+        [Display(Name = "Common Pest")]
+        public string MostCommonPest { get; set; }
+
+        [Required]
+        [Display(Name = "Soil Description")]
+        public string SoilDescription { get; set; }
+    }
+
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }

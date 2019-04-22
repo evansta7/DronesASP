@@ -24,6 +24,7 @@ namespace Drones.Entities
         public string MostCommonPest { get; set; }
 
         public string SoilDescription { get; set; }
-        public ICollection<Farm> FarmId { get; set; }
+
+        public Farm Farms { get; set; }
     }
 }

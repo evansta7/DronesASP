@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201904201919572_relationship_farm_farmer4.Designer.cs">
       <DependentUpon>201904201919572_relationship_farm_farmer4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904210842573_changedCropAndFarmForeignKeys.cs" />
+    <Compile Include="Migrations\201904210842573_changedCropAndFarmForeignKeys.Designer.cs">
+      <DependentUpon>201904210842573_changedCropAndFarmForeignKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2769,6 +2773,7 @@
     <Content Include="Views\Manage\AddFarmAddress.cshtml" />
     <Content Include="Views\Manage\PrintReport.cshtml" />
     <Content Include="Views\WeatherAPI\WeatherWidget.cshtml" />
+    <Content Include="Views\Manage\AddCrop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2813,6 +2818,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904201919572_relationship_farm_farmer4.resx">
       <DependentUpon>201904201919572_relationship_farm_farmer4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904210842573_changedCropAndFarmForeignKeys.resx">
+      <DependentUpon>201904210842573_changedCropAndFarmForeignKeys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
