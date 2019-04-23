@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    @using (Html.BeginForm("AddCropAsync", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    @using (Html.BeginForm("ChangeCropAsync", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-group">

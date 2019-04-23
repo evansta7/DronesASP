@@ -310,7 +310,7 @@ namespace Drones.Controllers
             {
                 await SaveFarmAddressAsync(farmAddressViewModel);
             }
-            return RedirectToAction("AddCrop", "Home");
+            return RedirectToAction("AddCrop", "Manage");
         }
 
         private async Task SaveFarmAddressAsync(AddFarmAddressViewModel farmAddressViewModel)
@@ -353,26 +353,43 @@ namespace Drones.Controllers
 
         }
 
+        public ActionResult AddCrop(CropViewModel cropViewModel)
+        {
+            Crop crop = GetCropDetails();
+            if (crop != null)
+            {
+                cropViewModel.CropDescription = crop.CropDescription;
+                cropViewModel.CropName = crop.CropName;
+                cropViewModel.IdealClimateLowerRange = crop.IdealClimateLowerRange;
+                cropViewModel.IdealClimateUpperRange = crop.IdealClimateUpperRange;
+                cropViewModel.IdealSoil = crop.IdealSoil;
+                cropViewModel.MostCommonPest = crop.MostCommonPest;
+                cropViewModel.SoilDescription = crop.SoilDescription;
+                return View(cropViewModel);
+            }
+            else
+            {
+                return View();
+            }
+        }
 
-        public async Task<ActionResult> AddCrop(CropViewModel cropViewModel)
+        public async Task<ActionResult> ChangeCropAsync(CropViewModel cropViewModel)
         {
             Crop crop = GetCropDetails();
             if (crop != null)
             {
                 await UpdateCropAsync(cropViewModel);
-                return RedirectToAction("Index", "Home");
             }
             else
             {
                 await AddCropAsync(cropViewModel);
-                return RedirectToAction("Index", "Home");
-
             }
+            return RedirectToAction("Index", "Manage");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddCropAsync(CropViewModel cropViewModel)
+        public async Task AddCropAsync(CropViewModel cropViewModel)
         {
             Farmer farmer = GetFarmerUserDetail();
             Farm farm = farmer.Farms;
@@ -387,14 +404,13 @@ namespace Drones.Controllers
             crop.Farms = farmer.Farms;
             DbContext.Crops.Add(crop);
             await DbContext.SaveChangesAsync();     
-            return RedirectToAction("Index", "Manage");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> UpdateCropAsync(CropViewModel cropViewModel)
+        public async Task UpdateCropAsync(CropViewModel cropViewModel)
         {
-            Crop crop = new Crop();
+            Crop crop = GetCropDetails();
             crop.CropDescription = cropViewModel.CropDescription;
             crop.CropName = cropViewModel.CropName;
             crop.IdealClimateLowerRange = cropViewModel.IdealClimateLowerRange;
@@ -403,7 +419,6 @@ namespace Drones.Controllers
             crop.MostCommonPest = cropViewModel.MostCommonPest;
             crop.SoilDescription = cropViewModel.SoilDescription;
             await DbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "Manage");
         }
 
 
