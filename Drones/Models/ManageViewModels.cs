@@ -156,6 +156,17 @@ namespace Drones.Models
         public string SoilDescription { get; set; }
     }
 
+    public class UAVViewModel
+    {
+        [Required]
+        [Display(Name = "Drone Type")]
+        public string DroneType { get; set; }
+
+        [Required]
+        [Display(Name = "Drone Status")]
+        public string DroneStatus { get; set; }
+    }
+
     public class ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; set; }

@@ -384,7 +384,7 @@ namespace Drones.Controllers
             {
                 await AddCropAsync(cropViewModel);
             }
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("AddUAV", "Manage");
         }
 
         [HttpPost]
@@ -403,7 +403,7 @@ namespace Drones.Controllers
             crop.SoilDescription = cropViewModel.SoilDescription;
             crop.Farms = farmer.Farms;
             DbContext.Crops.Add(crop);
-            await DbContext.SaveChangesAsync();     
+            await DbContext.SaveChangesAsync();
         }
 
         [HttpPost]
@@ -418,6 +418,68 @@ namespace Drones.Controllers
             crop.IdealSoil = cropViewModel.IdealSoil;
             crop.MostCommonPest = cropViewModel.MostCommonPest;
             crop.SoilDescription = cropViewModel.SoilDescription;
+            await DbContext.SaveChangesAsync();
+        }
+
+        public UAV GetUAVDetails()
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            UAV UAV = new UAV();
+            UAV = DbContext.UAV.Where(x => x.Farms.FarmId.Equals(farmer.Farms.FarmId)).SingleOrDefault();
+            return UAV;
+
+        }
+
+        public ActionResult AddUAV(UAVViewModel uavViewModel)
+        {
+            UAV uav = GetUAVDetails();
+            if (uav != null)
+            {
+                uavViewModel.DroneType = uav.DroneType;
+                uavViewModel.DroneStatus = uav.DroneStatus;
+                return View(uavViewModel);
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public async Task<ActionResult> ChangeUAVAsync(UAVViewModel uavViewModel)
+        {
+            UAV uav = GetUAVDetails();
+            if (uav != null)
+            {
+                await UpdateUAVAsync(uavViewModel);
+            }
+            else
+            {
+                await AddUavASync(uavViewModel);
+            }
+            return RedirectToAction("Index", "Manage");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task AddUavASync(UAVViewModel uavViewModel)
+        {
+            Farmer farmer = GetFarmerUserDetail();
+            Farm farm = farmer.Farms;
+            UAV uav = new UAV();
+            uav.DroneType = uavViewModel.DroneType;
+            uav.DroneStatus = uavViewModel.DroneStatus;
+            uav.Farms = farmer.Farms;
+            DbContext.UAV.Add(uav);
+            await DbContext.SaveChangesAsync();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task UpdateUAVAsync(UAVViewModel uavViewModel)
+        {
+            UAV uav = new UAV();
+            uav.DroneType = uavViewModel.DroneType;
+            uav.DroneStatus = uavViewModel.DroneStatus;
             await DbContext.SaveChangesAsync();
         }
 
